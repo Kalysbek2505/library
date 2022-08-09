@@ -1,6 +1,9 @@
+from telnetlib import STATUS
 from django.db import models
 from django.contrib.auth.models import User
- 
+
+STATUS = ((0, 'В полке'), (1, 'У пользователя'))
+
 # Create your models here.
 class Book(models.Model):
     title=models.CharField(max_length=200,null=True)
@@ -27,3 +30,11 @@ class Cart(models.Model):
  
     def __str__(self):
         return str(self.customer)
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    bookss = models.ForeignKey(Book, related_name='orders', on_delete=models.CASCADE)
+    status = models.IntegerField(choices=STATUS, default=0)
+
+

@@ -80,7 +80,7 @@ def viewcart(request):
             return render(request,'empty.html') 
             
  
-def addtocart(request,pk):
+def addtoorder(request,pk):
     book=Book.objects.get(id=pk)
     cust=Customer.objects.filter(user=request.user)
     
